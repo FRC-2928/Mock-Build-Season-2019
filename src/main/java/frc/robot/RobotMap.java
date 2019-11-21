@@ -14,6 +14,11 @@ public class RobotMap
     public static final int VICTOR_MIDDLE_RIGHT = 1;
     public static final int TALON_BACK_RIGHT = 0;
 
+    //arm gearbox
+   // public static final int TalonArm = ;
+    //public static final int TalonArmSlave = ;
+  
+
     //Ground hatch motors
     public static final int TALON_GROUND_HATCH_LEFT = 4;
     public static final int TALON_GROUND_HATCH_RIGHT= 5;
@@ -23,6 +28,8 @@ public class RobotMap
     public static final int TALON_RIGHT_THREADBAR = 8;
     public static final int TALON_LEFT_INTAKE = 11;
     public static final int TALON_RIGHT_INTAKE = 9;
+
+    //arm motors are yet to be built. they will be assigned later.
 
     //Elevator motors
     public static final int SPARK_ELEVATOR = 7;
