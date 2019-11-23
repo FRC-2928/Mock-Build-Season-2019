@@ -7,11 +7,11 @@
 
 package frc.robot.Subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.Command.StopFlywheel;
 
 /**
  * Add your docs here.
@@ -19,17 +19,20 @@ import frc.robot.Command.StopFlywheel;
 public class Flywheel extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
+  public WPI_TalonSRX flyWheelMotor;
+  public Flywheel(){
+    flyWheelMotor = new WPI_TalonSRX(RobotMap.FLYWHEEL_MOTOR_ID);
 
-  WPI_TalonSRX speedController = new WPI_TalonSRX(RobotMap.FLYWHEEL_MOTOR_ID);
-
-  @Override
+  }
+public void setFlyWheelSpeed(double power){
+  flyWheelMotor.set(ControlMode.PercentOutput, power);
+} 
+public int getflywheelencoder(){
+  return flyWheelMotor.getSelectedSensorPosition();
+}
+ @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    setDefaultCommand(new StopFlywheel());
   }
 
-  public void setMotorSpeed(double speed) {
-    speedController.set(speed);
-  }
 
 }

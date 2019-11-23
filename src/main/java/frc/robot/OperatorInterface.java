@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Command.ShootFlywheel;
-import frc.robot.Command.StopFlywheel;
 import frc.robot.Command.Chassis.Shift;
 import frc.robot.Subsystem.Chassis.*;
 
@@ -31,8 +30,7 @@ public class OperatorInterface {
         gearButtonLowController.whenPressed(new Shift(Transmission.GearState.LOW));
         gearButtonHighController.whenPressed(new Shift(Transmission.GearState.HIGH));
 
-        shooterStop.whenPressed(new StopFlywheel());
-        shooterStart.whenPressed(new ShootFlywheel());
+        shooterStart.whenPressed(new ShootFlywheel(0.6));
     }
 
     public double getDriveY() {

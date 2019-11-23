@@ -1,5 +1,6 @@
 package frc.robot.Subsystem.Chassis;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -78,6 +79,10 @@ public class Drivetrain extends Subsystem {
 
   public void setMotorSafetyEnabled(boolean safety) {
     drive.setSafetyEnabled(safety);
+  }
+
+  public void setPower(double power) {
+    left.set(ControlMode.PercentOutput, power);
   }
 
   public double getYaw() {
