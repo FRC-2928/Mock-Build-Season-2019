@@ -12,9 +12,23 @@ public class Intake extends Subsystem {
   }
   
   public void setPower(double power){
-    wheelMotor = 
+    wheelMotor.set(ControlMode.PercentOutput, power);
   }
 
+  public double getIntakePosition(){
+    return wheelMotor.getSelectedSensorPosition();
+  }
+
+  public void setIntakePosition(double setpoint){
+   double kP = 69;
+   double kD = 420;
+   double fF = 666;
+   double Error;
+    Error = setpoint - getIntakePosition();
+    double P = kP * Error;
+    double Input = P + fF;
+    setPower(Input);
+  }
 
 
   @Override
