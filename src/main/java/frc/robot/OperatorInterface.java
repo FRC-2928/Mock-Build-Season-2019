@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Command.SetIntakePosition;
 import frc.robot.Command.Chassis.Shift;
 import frc.robot.Subsystem.Chassis.*;
+import frc.robot.Command.Chassis.SetIntakeWheel;
 
 public class OperatorInterface {
 
@@ -22,6 +23,8 @@ public class OperatorInterface {
 
     private static final JoystickButton intakeButton = new JoystickButton(driveStick, 7);
 
+    private static final JoystickButton intakeWheelButton = new JoystickButton(driveStick, 0);
+
     OperatorInterface() {
         gearButtonLow.whenPressed(new Shift(Transmission.GearState.LOW));
         gearButtonHigh.whenPressed(new Shift(Transmission.GearState.HIGH));
@@ -31,6 +34,9 @@ public class OperatorInterface {
 
         intakeButton.whileHeld(new SetIntakePosition(420)); //placeholder
         intakeButton.whenReleased(new SetIntakePosition(0));
+
+        intakeWheelButton.whileHeld(new SetIntakeWheel(0.1));
+        intakeWheelButton.whileHeld(new SetIntakeWheel(0));
     }
 
     public double getDriveY() {

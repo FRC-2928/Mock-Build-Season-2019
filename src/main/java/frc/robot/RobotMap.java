@@ -15,4 +15,5 @@ public class RobotMap
     public static final int TALON_BACK_RIGHT = 0;
 
     public static final int TALON_INTAKE_ROTATION = 42; //placeholder
+    public static final int VICTOR_INTAKE_WHEEL = 69; //placeholder
 }
