@@ -7,97 +7,70 @@
 
 package frc.robot.Command;
 
-import java.awt.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class MoveArm extends Command {
-  public MoveArm(double power) {
+
+
+public class setflywheelvelocity extends Command {
+  private int desiredVelocity;
+  private int velocity;
+  private double derivative;
+  private double error;
+  private double previousError;
+  private double kP;
+  private double kD;
+  private double kI;
+  private double min_command;
+  private double power;
+  private double errorSum;
+  public setflywheelvelocity() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(robot.armBoi.setArmPower);
-    this.power = power;
-
-  }
-
-  public enum LiftState {
-    PICK_UP, FIRE_BALL
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
-
-
-    switch (setpoint) {
-      case PICK_UP:
-        setpoint = ;
-      break;
-
-      case FIRE_BALL:
-        setpoint = ;
-      break;
-
-
-     // case 
-     //M might need another position
-
-
-     
-    errorSum = 0;
-    derivative = 0;
-    if (Math.abs(error) < ) {
-      errorSum += (error * );
-
-    }
-    // bro we gotta fill in these errors once we have actual values
-    else{
-      errorSum = 0;
-
-    }
-    
-    derivative = (error - previousError);
-
-    if (error < 0){
-     kP = ;
-     kI = ;
-     kD = ;
-    }
-    if (error > 0){
-      kP = ;
-      kI = ;
-      kD = ;
-      }
-      //IM TYPING ON THE KEYBOARD. 
-      //<------ THESE ARE COMMENT SLASHES
-      //CONNALLY WAS HERE
-      
-   
-    // bro we gotta fill in these errors once we have actual values
-
-      output = ff + (kP * error) + (kI * errorSum) - (kD * derivative);
-      setArmPower(output);
-    }
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double power;
-    
-  }
+    //int velocity;
+    velocity = Robot.flywheel.getflywheelvelocity();
+    error = velocity - desiredVelocity;
+
   
+  derivative = (error - previousError);
+
+  if (error > 0){
+    kP = 0.074;
+    kI = 0.07;
+    kD = 0.275;
+    min_command = 0.006;
+    ff = 0;
+  
+  }
+  if (Math.abs(error) < 4) {
+      power = (kP * error) + (kI * errorSum) - (kD *derivative) + ff;
+  }
+  Robot.flywheel.setFlyWheelSpeed(power);
+}
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
-  }
+    if (desiredVelocity == velocity){
+      return true;
+    }
+      else return false;
+    }
+  //Maybe it should stop when you take your hand off
 
   // Called once after isFinished returns true
   @Override
-  protected void end() {
-  }
+  protected void end(){} 
+    
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
