@@ -19,12 +19,12 @@ import frc.robot.RobotMap;
 /**
  * Add your docs here.
  */
-public class armBOI extends Subsystem {
+public class ArmBOI extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private double kP;
-  private double kI;
-  private double kD;
+  private double kP =0;
+  private double kI =0;
+  private double kD =0;
   private double derivative;
   private double errorSum;
   private double previousError;
@@ -33,55 +33,19 @@ public class armBOI extends Subsystem {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
   }
-  public void MoveArmDown() {
-
-  }
-  public void MoveArmUp() {
-
-  }
-  
+ 
   public void setArmPower(double power) {
     armMotor.set(power);
     
   }
 
   public double getArmPos() {
-    double ArmPosition = .getPosition();
+    double ArmPosition = armEncoder.getPosition();
     return ArmPosition;
     // bro we gonna put in the encoder position once we have it
   }
 
   public void setArmPos() {
-
-    errorSum = 0;
-    derivative = 0;
-    if (Math.abs(error) < ) {
-      errorSum += (error * );
-
-    }
-    // bro we gotta fill in these errors once we have actual values
-    else{
-      errorSum = 0;
-
-    }
-    
-    derivative = (error - previousError);
-
-    if (error < 0){
-     kP = ;
-     kI = ;
-     kD = ;
-    }
-    if (error > 0){
-      kP = ;
-      kI = ;
-      kD = ;
-      }
-
-
-    // bro we gotta fill in these errors once we have actual values
-
-      armMovement == (kP * error) + (kI * errorSum) + (kD * derivative);
 
   }
 
@@ -89,6 +53,8 @@ public class armBOI extends Subsystem {
     armMotor = new CANSparkMax(RobotMap.TalonArm, MotorType.kBrushless);
     armMotorSlave = new CANSparkMax(RobotMap.TalonArmSlave, MotorType.kBrushless);
     armMotorSlave.follow(armMotor);
+    armEncoder = new CANEncoder(0);
+    //set arm encoder value when we have it.
 
   }
 
