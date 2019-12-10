@@ -60,18 +60,19 @@ public class MoveArm extends Command {
     derivative = (error - previousError);
 
     if (error < 0){
-     kP = ;
-     kI = ;
-     kD = ;
+     kP = 0;
+     kI = 0;
+     kD = 0;
     }
     if (error > 0){
-      kP = ;
-      kI = ;
-      kD = ;
+      kP = 0;
+      kI = 0;
+      kD = 0;
       }
       //IM TYPING ON THE KEYBOARD. 
       //<------ THESE ARE COMMENT SLASHES
       //CONNALLY WAS HERE
+      //connarly was not here
       
    
     // bro we gotta fill in these errors once we have actual values
@@ -91,17 +92,24 @@ public class MoveArm extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
+    double ArmPosition = ArmEncoder.GetEncoderPostion();
+    //put in values for when its aproching dangerous area
+    if (ArmPosition = 0) {
+      return true;
+    }
     return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    power = 0;
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }
