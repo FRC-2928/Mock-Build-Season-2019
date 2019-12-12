@@ -10,7 +10,7 @@ package frc.robot.Command.arm;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ResetEncoderPosition extends Command {
+public class resetEncoderPosition extends Command {
   public resetEncoderPosition() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
