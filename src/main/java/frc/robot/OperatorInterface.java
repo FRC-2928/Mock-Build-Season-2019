@@ -1,15 +1,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.*;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Command.SetIntakePosition;
+import frc.robot.Command.ShootFlywheel;
 import frc.robot.Command.Chassis.Shift;
 import frc.robot.Subsystem.Chassis.*;
+import frc.robot.Command.Chassis.SetIntakeWheel;
 
 public class OperatorInterface {
 
     // Driving
-    private static final Joystick driveStick = new Joystick(0);
+    private static final XboxController driveStick = new XboxController(0);
     private static final Joystick driveController = new Joystick(1);
 
     private static final JoystickButton gearButtonLow = new JoystickButton(driveStick, 9);
@@ -18,12 +22,26 @@ public class OperatorInterface {
     private static final JoystickButton gearButtonLowController = new JoystickButton(driveController, 7);
     private static final JoystickButton gearButtonHighController = new JoystickButton(driveController, 8);
 
+    private static final JoystickButton intakeButton = new JoystickButton(driveStick, 7);
+
+    private static final JoystickButton intakeWheelButton = new JoystickButton(driveStick, 0);
+    private static final JoystickButton shooterStart = new JoystickButton(driveController, 1);
+    private static final JoystickButton shooterStop = new JoystickButton(driveController, 3);
+
+
     OperatorInterface() {
         gearButtonLow.whenPressed(new Shift(Transmission.GearState.LOW));
         gearButtonHigh.whenPressed(new Shift(Transmission.GearState.HIGH));
 
         gearButtonLowController.whenPressed(new Shift(Transmission.GearState.LOW));
         gearButtonHighController.whenPressed(new Shift(Transmission.GearState.HIGH));
+
+        intakeButton.whileHeld(new SetIntakePosition(420)); //placeholder
+        intakeButton.whenReleased(new SetIntakePosition(0));
+
+        intakeWheelButton.whileHeld(new SetIntakeWheel(0.1));
+        intakeWheelButton.whileHeld(new SetIntakeWheel(0));
+        shooterStart.whenPressed(new ShootFlywheel(0.6));
     }
 
     public double getDriveY() {
@@ -32,14 +50,6 @@ public class OperatorInterface {
 
     public double getDriveX() {
         return driveStick.getX();
-    }
-
-    public double getDriveZ() {
-        return driveStick.getZ();
-    }
-
-    public double getSlider(){
-        return driveStick.getThrottle();
     }
 
     public double getControllerY(){

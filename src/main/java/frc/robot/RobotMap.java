@@ -17,7 +17,11 @@ public class RobotMap
     //Sensors
     public static final int PIGEON = 3;
 
+    public static final int TALON_INTAKE_ROTATION = 42; //placeholder
+    public static final int VICTOR_INTAKE_WHEEL = 69; //placeholder
     //Solenoids
     public static final int SOLENOID_TRANSMISSION_HIGH = 0;
     public static final int SOLENOID_TRANSMISSION_LOW = 1;
+
+    public static final int FLYWHEEL_MOTOR_ID = 0;
 }

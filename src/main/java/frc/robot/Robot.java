@@ -6,15 +6,19 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import frc.robot.Subsystem.Flywheel;
 import frc.robot.Subsystem.Chassis.*;
+import frc.robot.Subsystem.Inhale.Intake;
 
 //The main robot class, during a match the robot goes through everything in this class
 
 public class Robot extends TimedRobot {
     private Compressor compressor;
     public static Chassis chassis;
+    public static Intake intake;
     // public static GroundIntake groundintake;
     public static OperatorInterface oi;
+    public static Flywheel flywheel;
 
     
     //public static Sensors sensors;
@@ -25,6 +29,8 @@ public class Robot extends TimedRobot {
         compressor = new Compressor();
         compressor.start();
         chassis = new Chassis();
+        intake = new Intake();
+        flywheel = new Flywheel();
 
         // This has to be at the bottom or things crash
         // OI requires everything to be initialized
