@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Subsystem;
+package frc.robot.Subsystem.arm;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import com.revrobotics.CANEncoder;
@@ -28,6 +28,9 @@ public class ArmBOI extends Subsystem {
   private double derivative;
   private double errorSum;
   private double previousError;
+  private CANSparkMax armMotor;
+  private CANSparkMax armMotorSlave;
+  private CANEncoder armEncoder;
   @Override
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
@@ -49,23 +52,23 @@ public class ArmBOI extends Subsystem {
 
   }
 
-  public void armMotor() {
-    armMotor = new CANSparkMax(RobotMap.TalonArm, MotorType.kBrushless);
-    armMotorSlave = new CANSparkMax(RobotMap.TalonArmSlave, MotorType.kBrushless);
+  public void ArmBOI() {
+    armMotor = new CANSparkMax(RobotMap.TALON_ARM, MotorType.kBrushless);
+    armMotorSlave = new CANSparkMax(RobotMap.TALON_ARM_SLAVE, MotorType.kBrushless);
     armMotorSlave.follow(armMotor);
-    armEncoder = new CANEncoder(0);
+    armEncoder = new CANEncoder(armMotor);
     //set arm encoder value when we have it.
 
   }
 
 
   public void resetEncoderPosition() {
-  ArmEncoder.setPosition(0);
+    armEncoder.setPosition(0);
   }
   public double GetEncoderPostion() {
-double ArmPosition = ArmEncoder.GetEncoderPostion();
-return ArmPosition;
-ArmEncoder = new CANsparkmax(RobotMap.TalonArm);
+    double ArmPosition = armEncoder.getPosition();
+    // ArmEncoder = new CANsparkmax(RobotMap.TalonArm);
+    return ArmPosition;
   }
 
 }

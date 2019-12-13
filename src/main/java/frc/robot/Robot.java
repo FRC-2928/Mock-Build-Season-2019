@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Subsystem.Flywheel;
 import frc.robot.Subsystem.Chassis.*;
 import frc.robot.Subsystem.Inhale.Intake;
+import frc.robot.Subsystem.arm.ArmBOI;
 
 //The main robot class, during a match the robot goes through everything in this class
 
@@ -19,6 +20,7 @@ public class Robot extends TimedRobot {
     // public static GroundIntake groundintake;
     public static OperatorInterface oi;
     public static Flywheel flywheel;
+    public static ArmBOI armBOI;
 
     
     //public static Sensors sensors;
@@ -31,7 +33,8 @@ public class Robot extends TimedRobot {
         chassis = new Chassis();
         intake = new Intake();
         flywheel = new Flywheel();
-
+        armBOI = new ArmBOI();
+        
         // This has to be at the bottom or things crash
         // OI requires everything to be initialized
         oi = new OperatorInterface(); 
