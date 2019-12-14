@@ -5,50 +5,77 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Command;
+package frc.robot.Command.arm;
 
 import java.awt.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class MoveArm extends Command {
-  public MoveArm(double power) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(robot.armBoi.setArmPower);
-    this.power = power;
+public class SetArm extends Command {
+  private double power;
+  private double errorSum;
+  private double derivative;
+  private double error;
+  private double previousError;
+  private double kP;
+  private double kI;
+  private double kD;
+  private double output;
+  private double ff;
 
-  }
+
+
+
+  private double setpointInches;
 
   public enum LiftState {
     PICK_UP, FIRE_BALL
   }
+  private LiftState setpoint;
+
+  public SetArm(double power) {
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
+    requires(frc.robot.Robot.armBOI);
+    this.power = power;
+
+  }
+
+
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
 
 
-
+// ???????
     switch (setpoint) {
       case PICK_UP:
-        setpoint = ;
+        setpointInches = 10 ;
       break;
 
       case FIRE_BALL:
-        setpoint = ;
+        setpointInches = 20;
       break;
 
-
+    }
      // case 
      //M might need another position
 
 
+  }
+
+  // Called repeatedly when this Command is scheduled to run
+  @Override
+  protected void execute() {
+    double power;
+    
+
      
     errorSum = 0;
     derivative = 0;
-    if (Math.abs(error) < ) {
-      errorSum += (error * );
+    if (Math.abs(error) < 0) {
+      errorSum += (error * 1);
 
     }
     // bro we gotta fill in these errors once we have actual values
@@ -78,26 +105,22 @@ public class MoveArm extends Command {
     // bro we gotta fill in these errors once we have actual values
 
       output = ff + (kP * error) + (kI * errorSum) - (kD * derivative);
-      setArmPower(output);
+      frc.robot.Robot.armBOI.setArmPower(output);
+      //Robot.armBOI.setArmPower(output);
     }
-  }
-
-  // Called repeatedly when this Command is scheduled to run
-  @Override
-  protected void execute() {
-    double power;
-    
-  }
   
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double ArmPosition = ArmEncoder.GetEncoderPostion();
+    double ArmPosition = frc.robot.Robot.armBOI.getArmPos();
+
     //put in values for when its aproching dangerous area
-    if (ArmPosition = 0) {
+
+    if (setpointInches == ArmPosition){
       return true;
     }
-    return false;
+      else return false;
+
   }
 
   // Called once after isFinished returns true
