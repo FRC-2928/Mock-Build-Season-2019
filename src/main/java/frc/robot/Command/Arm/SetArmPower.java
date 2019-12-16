@@ -1,10 +1,14 @@
-package frc.robot.Command;
+package frc.robot.Command.Arm;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class SetIntakePower extends Command {
-  public SetIntakePower() {
-    
+//Open loop Arm control
+public class SetArmPower extends Command {
+  private double power;
+  public SetArmPower(double power) {
+    requires(Robot.arm);
+    this.power = power;
   }
 
   // Called just before this Command runs the first time
@@ -15,6 +19,7 @@ public class SetIntakePower extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.arm.setPower(power);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -26,11 +31,13 @@ public class SetIntakePower extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.arm.setPower(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

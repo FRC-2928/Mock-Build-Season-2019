@@ -1,15 +1,12 @@
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.Subsystem.Flywheel;
+import frc.robot.Subsystem.Arm.Arm;
 import frc.robot.Subsystem.Chassis.*;
-import frc.robot.Subsystem.Inhale.Intake;
-import frc.robot.Subsystem.arm.ArmBOI;
+import frc.robot.Subsystem.Intake.Intake;
+import frc.robot.Subsystem.Shooter.Shooter;
 
 //The main robot class, during a match the robot goes through everything in this class
 
@@ -17,10 +14,9 @@ public class Robot extends TimedRobot {
     private Compressor compressor;
     public static Chassis chassis;
     public static Intake intake;
-    // public static GroundIntake groundintake;
+    public static Arm arm;
+    public static Shooter shooter;
     public static OperatorInterface oi;
-    public static Flywheel flywheel;
-    public static ArmBOI armBOI;
 
     
     //public static Sensors sensors;
@@ -32,8 +28,8 @@ public class Robot extends TimedRobot {
         compressor.start();
         chassis = new Chassis();
         intake = new Intake();
-        flywheel = new Flywheel();
-        armBOI = new ArmBOI();
+        arm = new Arm();
+        shooter = new Shooter();
         
         // This has to be at the bottom or things crash
         // OI requires everything to be initialized
@@ -43,8 +39,6 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         Scheduler.getInstance().removeAll();
-
-
     }
 
     @Override
@@ -62,9 +56,6 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
-        // NetworkTableEntry tx = table.getEntry("tx");
-        // double x = tx.getDouble(0.0);
-        // SmartDashboard.putNumber("Limelight X value  from Robot.java", x);
     }
 
    
