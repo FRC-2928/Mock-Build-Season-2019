@@ -28,8 +28,15 @@ public class setArmPower extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+<<<<<<< HEAD
     frc.robot.Robot.armBOI.setArmPower(0.5); //placeholder, hard-coded
    
+=======
+    ArmPower(0.5); //placeholder, hard-coded
+    double localPower = GetEncoderPostion(); 
+    SmartDashboard.putNumber("Arm encoder value", localPower);
+  
+>>>>>>> b185741485d9319e8aaa74f399ed043c4fc26bfe
     }
   
 
