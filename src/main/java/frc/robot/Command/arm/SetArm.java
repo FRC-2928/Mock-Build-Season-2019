@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Command.arm;
+package frc.robot.Command;
 
 import java.awt.Robot;
 
