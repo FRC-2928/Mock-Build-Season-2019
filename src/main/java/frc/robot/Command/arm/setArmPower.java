@@ -25,12 +25,12 @@ public class setArmPower extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    setArmPower(0.5); //placeholder, hard-coded
+    ArmPower(0.5); //placeholder, hard-coded
     double localPower = GetEncoderPostion(); 
     SmartDashboard.putNumber("Arm encoder value", localPower);
   
     }
-  }
+  
 
   // Make this return true when this Command no longer needs to run execute()
   @Override

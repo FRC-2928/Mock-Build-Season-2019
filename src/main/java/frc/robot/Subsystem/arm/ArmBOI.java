@@ -37,7 +37,7 @@ public class ArmBOI extends Subsystem {
     // setDefaultCommand(new MySpecialCommand());
   }
  
-  public void setArmPower(double power) {
+  public void ArmPower(double power) {
     armMotor.set(power);
     
   }
