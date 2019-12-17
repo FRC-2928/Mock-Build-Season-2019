@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Command.SetIntakePosition;
 import frc.robot.Command.ShootFlywheel;
 import frc.robot.Command.Chassis.Shift;
+import frc.robot.Command.arm.setArmPower;
 import frc.robot.Subsystem.Chassis.*;
+import frc.robot.Subsystem.arm.ArmBOI;
 import frc.robot.Command.Chassis.SetIntakeWheel;
 
 public class OperatorInterface {
@@ -27,6 +29,7 @@ public class OperatorInterface {
     private static final JoystickButton intakeWheelButton = new JoystickButton(driveStick, 0);
     private static final JoystickButton shooterStart = new JoystickButton(driveController, 1);
     private static final JoystickButton shooterStop = new JoystickButton(driveController, 3);
+    private static final JoystickButton armPowerButton = new JoystickButton(driveController, 4); //placeholder button
 
 
     OperatorInterface() {
@@ -42,6 +45,7 @@ public class OperatorInterface {
         intakeWheelButton.whileHeld(new SetIntakeWheel(0.1));
         intakeWheelButton.whileHeld(new SetIntakeWheel(0));
         shooterStart.whenPressed(new ShootFlywheel(0.6));
+        armPowerButton.whenPressed(new setArmPower(1)); //placeholder value bro
     }
 
     public double getDriveY() {
