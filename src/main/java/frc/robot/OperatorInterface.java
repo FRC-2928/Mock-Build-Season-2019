@@ -29,7 +29,7 @@ public class OperatorInterface {
     private static final JoystickButton intakeWheelButton = new JoystickButton(driveStick, 0);
     private static final JoystickButton shooterStart = new JoystickButton(driveController, 1);
     private static final JoystickButton shooterStop = new JoystickButton(driveController, 3);
-    private static final JoystickButton armPowerButton = new JoystickButton(driveController, 4); //placeholder button
+    private static final JoystickButton armPowerButton = new JoystickButton(driveController, 4); //left backside button
 
 
     OperatorInterface() {
@@ -45,7 +45,7 @@ public class OperatorInterface {
         intakeWheelButton.whileHeld(new SetIntakeWheel(0.1));
         intakeWheelButton.whileHeld(new SetIntakeWheel(0));
         shooterStart.whenPressed(new ShootFlywheel(0.6));
-        armPowerButton.whenPressed(new setArmPower(1)); //placeholder value bro
+        armPowerButton.whenPressed(new setArmPower()); 
     }
 
     public double getDriveY() {
