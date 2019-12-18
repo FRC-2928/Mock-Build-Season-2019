@@ -25,6 +25,10 @@ public class Arm extends Subsystem {
     private double integral = 0;
     private double derivative = 0;
     private double previousError = 0;
+
+  public enum ArmState{
+    STOW, INTAKE, SHOOTING;
+  }
     
   public Arm(){
     armMotor = new WPI_TalonSRX(RobotMap.TALON_ARM);

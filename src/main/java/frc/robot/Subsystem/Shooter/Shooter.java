@@ -6,10 +6,9 @@ import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
@@ -18,7 +17,8 @@ import frc.robot.RobotMap;
 public class Shooter extends Subsystem {
   //Motor Controllers
   private WPI_TalonSRX shooterMotor;
-  private WPI_VictorSPX shooterMotorSlave;
+  private WPI_TalonSRX shooterMotorSlave;
+  private Solenoid feeder;
 
   //PID Gains
   private double kP = 0.05;
@@ -31,14 +31,19 @@ public class Shooter extends Subsystem {
   private double integral = 0;
   private double derivative = 0;
   private double previousError = 0;
+  private FeederState currentState;
+
+  public enum FeederState{
+    OPEN, CLOSED;
+  }
 
   public Shooter(){
     shooterMotor = new WPI_TalonSRX(RobotMap.TALON_FLYWHEEL_LEFT);
-    shooterMotorSlave = new WPI_VictorSPX(RobotMap.VICTOR_FLYWHEEL_RIGHT);
+    shooterMotorSlave = new WPI_TalonSRX(RobotMap.TALON_BACK_RIGHT);
     shooterMotor.configFactoryDefault();
     shooterMotorSlave.configFactoryDefault();
-
-    shooterMotorSlave.follow(shooterMotor);
+    
+    shooterMotorSlave.follow(shooterMotor, FollowerType.PercentOutput);
     shooterMotorSlave.setInverted(InvertType.OpposeMaster);
 
     shooterMotor.setNeutralMode(NeutralMode.Brake);
@@ -50,14 +55,14 @@ public class Shooter extends Subsystem {
     shooterMotor.configContinuousCurrentLimit(45); //Same here, we'll most likely be cruising with our feedfoward gain
     shooterMotor.configNeutralDeadband(0.01);
 
-    shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
+    shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
+    feeder = new Solenoid(RobotMap.SOLENOID_SHOOTER_FINGERS);
+    currentState = FeederState.CLOSED;
   }
 
   public void setPower(double power){
     shooterMotor.set(ControlMode.PercentOutput,power);
-    shooterMotorSlave.set(ControlMode.PercentOutput, -power);
-    SmartDashboard.putNumber("Left Shooter Output", shooterMotor.getMotorOutputVoltage());
-    SmartDashboard.putNumber("Right Shooter Output", shooterMotorSlave.getMotorOutputVoltage());
   }
 
   public double getShooterPosition(){
@@ -77,6 +82,26 @@ public class Shooter extends Subsystem {
     setPower(output);
 
     previousError = error;
+  }
+
+  public void setFeeder(FeederState state){
+    switch(state){
+      case CLOSED:
+      feeder.set(true);
+      break;
+
+      case OPEN:
+      feeder.set(false);
+      break;
+
+      default:
+      break;
+    }
+    currentState = state;
+  }
+
+  public FeederState getFeederState(){
+    return currentState;
   }
 
   @Override
