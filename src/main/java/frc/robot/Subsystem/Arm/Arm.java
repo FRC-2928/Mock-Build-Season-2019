@@ -1,7 +1,11 @@
 package frc.robot.Subsystem.Arm;
 
+import javax.sound.sampled.BooleanControl.Type;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -26,6 +30,8 @@ public class Arm extends Subsystem {
     armMotor = new WPI_TalonSRX(RobotMap.TALON_ARM);
     armMotor.configFactoryDefault();
 
+    armMotor.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.Disabled);
+    armMotor.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated, LimitSwitchNormal.Disabled);
     armMotor.setNeutralMode(NeutralMode.Brake);
     armMotor.configVoltageCompSaturation(12);
     armMotor.enableVoltageCompensation(true);

@@ -6,8 +6,10 @@ import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 
 /**
@@ -16,7 +18,7 @@ import frc.robot.RobotMap;
 public class Shooter extends Subsystem {
   //Motor Controllers
   private WPI_TalonSRX shooterMotor;
-  private WPI_TalonSRX shooterMotorSlave;
+  private WPI_VictorSPX shooterMotorSlave;
 
   //PID Gains
   private double kP = 0.05;
@@ -32,11 +34,11 @@ public class Shooter extends Subsystem {
 
   public Shooter(){
     shooterMotor = new WPI_TalonSRX(RobotMap.TALON_FLYWHEEL_LEFT);
-    shooterMotorSlave = new WPI_TalonSRX(RobotMap.TALON_BACK_RIGHT);
+    shooterMotorSlave = new WPI_VictorSPX(RobotMap.VICTOR_FLYWHEEL_RIGHT);
     shooterMotor.configFactoryDefault();
     shooterMotorSlave.configFactoryDefault();
-    
-    shooterMotorSlave.follow(shooterMotor, FollowerType.PercentOutput);
+
+    shooterMotorSlave.follow(shooterMotor);
     shooterMotorSlave.setInverted(InvertType.OpposeMaster);
 
     shooterMotor.setNeutralMode(NeutralMode.Brake);
@@ -48,11 +50,14 @@ public class Shooter extends Subsystem {
     shooterMotor.configContinuousCurrentLimit(45); //Same here, we'll most likely be cruising with our feedfoward gain
     shooterMotor.configNeutralDeadband(0.01);
 
-    shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);
   }
 
   public void setPower(double power){
     shooterMotor.set(ControlMode.PercentOutput,power);
+    shooterMotorSlave.set(ControlMode.PercentOutput, -power);
+    SmartDashboard.putNumber("Left Shooter Output", shooterMotor.getMotorOutputVoltage());
+    SmartDashboard.putNumber("Right Shooter Output", shooterMotorSlave.getMotorOutputVoltage());
   }
 
   public double getShooterPosition(){

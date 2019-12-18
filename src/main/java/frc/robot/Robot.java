@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystem.Arm.Arm;
 import frc.robot.Subsystem.Chassis.*;
 import frc.robot.Subsystem.Intake.Intake;
@@ -56,6 +57,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Shooter Velocity", shooter.getShooterVelocity());
     }
 
    

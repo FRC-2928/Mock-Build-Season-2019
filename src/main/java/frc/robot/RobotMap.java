@@ -17,18 +17,20 @@ public class RobotMap
     //Solenoids
     public static final int SOLENOID_TRANSMISSION_HIGH = 0;
     public static final int SOLENOID_TRANSMISSION_LOW = 1;
+    public static final int SOLENOID_SHOOTER_FINGERS = 3;
     
     //Sensors
     public static final int PIGEON = 3;
 
     //Arm
     public static final int TALON_ARM = 5;
+    public static final int VICTOR_BELT = 9;
 
     //Intake
-    public static final int TALON_INTAKE_ROTATION = 42; //placeholder
-    public static final int VICTOR_INTAKE_WHEEL = 69; //placeholder
+    public static final int TALON_INTAKE_ROTATION = 6; //placeholder
+    public static final int VICTOR_INTAKE_WHEEL = 10; //placeholder
     
     //Shooter
-    public static final int TALON_FLYWHEEL_LEFT = 0;
-    public static final int TALON_FLYWHEEL_RIGHT = 1;
+    public static final int TALON_FLYWHEEL_LEFT = 4;
+    public static final int VICTOR_FLYWHEEL_RIGHT = 11;
 }

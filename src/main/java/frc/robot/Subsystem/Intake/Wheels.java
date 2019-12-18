@@ -1,6 +1,7 @@
 package frc.robot.Subsystem.Intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -18,6 +19,7 @@ public class Wheels extends Subsystem {
     wheelMotor.configVoltageCompSaturation(12);
     wheelMotor.enableVoltageCompensation(true);
     wheelMotor.configNeutralDeadband(0.01);
+    wheelMotor.setInverted(InvertType.InvertMotorOutput);
   }
 
   public void setWheelsPower(double power){
