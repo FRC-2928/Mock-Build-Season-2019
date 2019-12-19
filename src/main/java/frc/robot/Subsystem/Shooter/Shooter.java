@@ -45,9 +45,9 @@ public class Shooter extends Subsystem {
     shooterMotorSlave.setNeutralMode(NeutralMode.Brake);
     shooterMotor.configVoltageCompSaturation(12);
     shooterMotor.enableVoltageCompensation(true);
-    shooterMotor.configPeakCurrentLimit(55); //We will probably never hit this but better safe than sorry
+    shooterMotor.configPeakCurrentLimit(45); //We will probably never hit this but better safe than sorry
     shooterMotor.configPeakCurrentDuration(50);
-    shooterMotor.configContinuousCurrentLimit(45); //Same here, we'll most likely be cruising with our feedfoward gain
+    shooterMotor.configContinuousCurrentLimit(35); //Same here, we'll most likely be cruising with our feedfoward gain
     shooterMotor.configNeutralDeadband(0.01);
 
     shooterMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute);

@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Subsystem.Arm.Arm;
 import frc.robot.Subsystem.Chassis.*;
 import frc.robot.Subsystem.Intake.Intake;
+import frc.robot.Subsystem.Intake.IntakeArm;
+import frc.robot.Subsystem.Shooter.Belts;
 import frc.robot.Subsystem.Shooter.Shooter;
 
 //The main robot class, during a match the robot goes through everything in this class
@@ -17,6 +19,7 @@ public class Robot extends TimedRobot {
     public static Intake intake;
     public static Arm arm;
     public static Shooter shooter;
+    public static Belts belts;
     public static OperatorInterface oi;
 
     
@@ -31,6 +34,7 @@ public class Robot extends TimedRobot {
         intake = new Intake();
         arm = new Arm();
         shooter = new Shooter();
+        belts = new Belts();
         
         // This has to be at the bottom or things crash
         // OI requires everything to be initialized
@@ -40,11 +44,13 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         Scheduler.getInstance().removeAll();
+        intake.intakearm.resetIntakeEncoder();
     }
 
     @Override
     public void autonomousPeriodic() { 
         Scheduler.getInstance().run();
+        SmartDashboard.putNumber("Intake Rotation", intake.intakearm.getIntakePosition());
     }
 
     @Override

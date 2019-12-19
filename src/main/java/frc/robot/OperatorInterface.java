@@ -7,7 +7,9 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.Command.Arm.SetArmPower;
 import frc.robot.Command.Chassis.Shift;
+import frc.robot.Command.Intake.SetIntakePower;
 import frc.robot.Command.Intake.SetWheelPower;
+import frc.robot.Command.Shooter.SetBeltPower;
 import frc.robot.Command.Shooter.SetShooterPower;
 import frc.robot.Subsystem.Chassis.*;
 
@@ -27,6 +29,10 @@ public class OperatorInterface {
 
     private static final JoystickButton shooterButton = new JoystickButton(driveStick, 3);
 
+    private static final JoystickButton intakeUp = new JoystickButton(driveStick, 8);
+    private static final JoystickButton intakeDown = new JoystickButton(driveStick, 7);
+
+
     OperatorInterface() {
         gearButtonLow.whenPressed(new Shift(Transmission.GearState.LOW));
         gearButtonHigh.whenPressed(new Shift(Transmission.GearState.HIGH));
@@ -37,7 +43,11 @@ public class OperatorInterface {
         armUpButton.whileHeld(new SetArmPower(0.7));
         armDownButton.whileHeld(new SetArmPower(-0.7));
 
-        shooterButton.whileHeld(new SetShooterPower(0.7));
+        shooterButton.whileHeld(new SetShooterPower(0.9));
+        shooterButton.whileHeld(new SetBeltPower(0.9));
+
+        intakeUp.whileHeld(new SetIntakePower(0.75));
+        intakeDown.whileHeld(new SetIntakePower(-0.75));
     }
 
     public double getDriveY() {
